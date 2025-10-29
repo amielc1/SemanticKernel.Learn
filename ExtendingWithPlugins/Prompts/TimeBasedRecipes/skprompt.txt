@@ -1,0 +1,3 @@
+﻿<message role="user">Based on the time of the year, give me a pie recipe that is appropriate for the season.
+The current day is {{$today}}.
+</message>

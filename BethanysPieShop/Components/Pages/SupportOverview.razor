@@ -1,0 +1,46 @@
+﻿@page "/support"
+@using Microsoft.AspNetCore.Authorization
+
+
+@attribute [Authorize(Roles = "User")]
+
+<h3>Support tickets</h3>
+
+<a href="supportadd" class="btn btn-outline-primary btn-sm mb-1">
+    Add new support ticket
+</a>
+
+@if (Tickets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Tickets)
+            {
+                <tr>
+                    <td>@ticket.Id</td>
+                    <td>@ticket.CreatedDate</td>
+                    <td>@ticket.TicketStatus</td>
+
+                    <td>
+                        <a href="@($"supportdetail/{ticket.Id}")" class="btn btn-outline-primary btn-sm mb-1">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

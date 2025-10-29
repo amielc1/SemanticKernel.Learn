@@ -1,0 +1,64 @@
+﻿<div class="sidebar bg-light">
+    <div class="pt-2 h-100">
+        <img class="img-fluid rounded-circle" src="images/profilePicture.jpg" />
+
+        <div class="menu list-group list-group-flush pt-5">
+            <NavLink class="list-group-item list-group-item-action bg-light" href="/">
+                Home
+            </NavLink>
+            <AuthorizeView Roles="User">
+                <Authorized>
+                    <NavLink class="list-group-item list-group-item-action bg-light" href="/Support">
+                        Contact Support
+                    </NavLink>
+                    <AuthorizeView Roles="Administrator" Context="AdminContext">
+                        <p class="m-3"><b>Admin</b></p>
+
+                        <NavLink class="list-group-item list-group-item-action bg-light" href="Admin/ManagePies">
+                            Pies
+                        </NavLink>
+
+                        <NavLink class="list-group-item list-group-item-action bg-light" href="Admin/PieCreator">
+                            Pie creator
+                        </NavLink>
+
+                        <NavLink class="list-group-item list-group-item-action bg-light" href="Admin/SalesBot">
+                            Sales Bot
+                        </NavLink>
+
+                        <NavLink class="list-group-item list-group-item-action bg-light" href="Admin/Tickets">
+                            Tickets
+                        </NavLink>
+
+                    </AuthorizeView>
+
+                    <p class="m-3"><b>Account</b></p>
+                    <NavLink class="list-group-item list-group-item-action bg-light" href="Account/Manage">
+                        Manage account
+                    </NavLink>
+
+                    <form class="list-group-item list-group-item-action bg-light" action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <button type="submit" class="btn btn-outline-primary btn-sm mt-3" style="width: 100%;">
+                            Logout
+                        </button>
+                    </form>
+
+                </Authorized>
+
+                <NotAuthorized>
+                    <NavLink class="btn btn-outline-primary btn-sm mt-3" href="Account/Register">
+                        Register
+                    </NavLink>
+
+                    <NavLink href="Account/Login" class="btn btn-outline-primary btn-sm mt-3">
+                        Login
+                    </NavLink>
+
+                </NotAuthorized>
+            </AuthorizeView>
+
+        </div>
+    </div>
+</div>

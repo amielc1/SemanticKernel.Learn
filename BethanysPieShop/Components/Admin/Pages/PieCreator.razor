@@ -1,0 +1,21 @@
+﻿@page "/admin/piecreator"
+@using Microsoft.AspNetCore.Authorization
+@using BethanysPieShop.Model
+
+@attribute [Authorize(Roles = "Administrator")]
+@rendermode InteractiveServer
+
+<h3>Pie Creator</h3>
+<p>The Pie Creator is your emergency tool to help with the creation of pies in case of low stock of supplies.</p>
+
+<br />
+<h4>Enter the ingredients we still have below:</h4>
+<div class="form-group">
+    <textarea id="ingredientTextArea" @bind="Ingredients" class="form-control m-2" placeholder="Enter available ingredients here..."></textarea>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="OnEnterIngredients">Ask Bethany's Pie Creator</button>
+</div>
+<div class="mt-3">
+    <p>@Message</p>
+</div>

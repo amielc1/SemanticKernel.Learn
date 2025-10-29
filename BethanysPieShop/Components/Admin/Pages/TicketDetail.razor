@@ -1,0 +1,80 @@
+﻿@page "/admin/ticketdetail/{ticketid:int}"
+@using BethanysPieShop.Model
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "Administrator")]
+
+@if (Ticket != null)
+{
+    <h3>Support Ticket @Ticket.Id</h3>
+
+    @if (!IsSaved)
+    {
+        <h3>@Ticket.Title</h3>
+
+        <div class="col-12 row">
+
+            @foreach (var message in Ticket.TicketMessages)
+            {
+                <div class="col-12 row mb-3">
+                    <div class="col-1">
+                        <img src="@($"images/icons/{message.TicketMessageSentiment}.png")" class="img-fluid" />
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group row">
+                            <div>
+                                <img src="@($"images/flags/{message.Language}.png")" width="30" />
+                                <label class="col-sm-4 col-form-label">Original message</label>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <label type="text" readonly class="form-control-plaintext">@message.Message</label>
+                            </div>
+                        </div>
+
+
+                        @if (message.Language != "en")
+                        {
+                            <div class="form-group row">
+                                <div>
+                                    <img src="images/flags/en.png" width="30" />
+
+                                    <label class="col-sm-4 col-form-label">Translated message</label>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <label type="text" readonly class="form-control-plaintext">@message.MessageEn</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <hr class="bg-danger border-2 border-top border-danger" />
+            }
+
+        </div>
+
+
+        <h4>Add extra message</h4>
+
+        <EditForm Model="TicketMessage" OnSubmit="OnSubmit" Enhance FormName="AddMessageToTicketForm">
+
+            <div class="row mb-3">
+                <label for="Message" class="col-form-label col-md-3">Extra message: </label>
+                <div class="col-md-8">
+                    <InputTextArea id="Message" class="form-control col-md-8" @bind-Value="@TicketMessage.Message" placeholder="Enter your message"></InputTextArea>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-outline-primary ms-1">Submit</button>
+            </div>
+
+        </EditForm>
+    }
+    else
+    {
+        <h4 class="text-success">@Message</h4>
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "description": "Generates a Fact of the Day about Bethany's Pie Shop, the best pie store in the world.",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 250,
+      "temperature": 0.7
+    }
+  }
+}

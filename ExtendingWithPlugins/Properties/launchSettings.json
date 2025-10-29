@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ExtendingWithPlugins": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

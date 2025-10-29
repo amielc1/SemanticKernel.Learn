@@ -1,0 +1,57 @@
+﻿@page "/supportdetail/{ticketid:int}"
+@using BethanysPieShop.Model
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "User")]
+
+
+<h3>Add New Message to Support Ticket</h3>
+
+@if (Ticket != null)
+{
+    @if (!IsSaved)
+    {
+        <h3>@Ticket.Title</h3>
+
+        <div class="row mb-3">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Ticket ID</label>
+                <div class="col-sm-8">
+                    <label type="text" class="form-control-plaintext">@Ticket.Id</label>
+                </div>
+            </div>
+
+            @foreach (var message in Ticket.TicketMessages)
+            {
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Message</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@message.Message</label>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <h4>Add extra message</h4>
+
+        <EditForm Model="TicketMessage" OnSubmit="OnSubmit" Enhance FormName="AddMessageToTicketForm">
+
+            <div class="row mb-3">
+                <label for="Message" class="col-form-label col-sm-3">Extra message: </label>
+                <div class="col-sm-8">
+                    <InputTextArea id="Message" class="form-control col-md-8" @bind-Value="@TicketMessage.Message" placeholder="Enter your message"></InputTextArea>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-outline-primary ms-1">Submit</button>
+            </div>
+
+        </EditForm>
+    }
+    else
+    {
+        <h4 class="text-success">@Message</h4>
+    }
+}

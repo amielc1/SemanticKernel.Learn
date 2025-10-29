@@ -1,0 +1,43 @@
+﻿@page "/admin/tickets"
+@using Microsoft.AspNetCore.Authorization
+
+
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3>Tickets</h3>
+
+
+@if (Tickets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Summary</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Tickets)
+            {
+                <tr>
+                    <td>@ticket.Summary</td>
+                    <td>@ticket.CreatedDate</td>
+                    <td>@ticket.TicketStatus</td>
+
+                    <td>
+                        <a href="@($"admin/ticketdetail/{ticket.Id}")" class="btn btn-outline-primary btn-sm mb-1">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

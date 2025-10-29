@@ -1,0 +1,2 @@
+﻿<message role="user">Give me a fact of the day about Bethany's Pie Shop, who bakes the best pies in the world. This will be shown on the landing page of the site.
+</message>

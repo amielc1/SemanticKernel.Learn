@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "GettingStartedWithSK": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

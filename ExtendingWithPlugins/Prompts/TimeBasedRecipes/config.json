@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "description": "Provides recipes for baking special pies.",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 250,
+      "temperature": 0.7
+    }
+  }
+}

@@ -1,0 +1,56 @@
+﻿@page "/supportadd"
+@using BethanysPieShop.Model
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "User")]
+
+
+<h3>Add New Support Ticket</h3>
+
+
+@if (!IsSaved)
+{
+    <EditForm Model="Ticket" OnSubmit="OnSubmit" Enhance FormName="AddTicketForm">
+
+        <div class="row mb-3">
+            <label for="Message" class="col-form-label col-md-3">Message: </label>
+            <div class="col-md-8">
+                <InputTextArea id="Message" class="form-control col-md-8" @bind-Value="@InitialMessage" placeholder="Enter your message"></InputTextArea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="ticketType" class="col-form-label col-md-3">Type: </label>
+            <div class="col-md-8">
+                <InputSelect id="ticketType" class="form-select col-md-8" @bind-Value=@Ticket.TicketType>
+                    <option value="@(TicketType.Question)">Question</option>
+                    <option value="@(TicketType.Idea)">Idea</option>
+                    <option value="@(TicketType.Complaint)">Complaint</option>
+                    <option value="@(TicketType.Return)">Return</option>
+                </InputSelect>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="pie" class="col-form-label col-md-3">(Optional) Pie this is related to: </label>
+            <div class="col-md-8">
+                <InputSelect id="pie" class="form-select col-md-8" @bind-Value="@Ticket.PieId">
+                    @foreach (var pie in Pies)
+                    {
+                        <option value="@pie.Id">@pie.Name</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+
+        <div>
+            <button type="submit" class="btn btn-outline-primary ms-1">Submit</button>
+        </div>
+
+    </EditForm>
+}
+else
+{
+    <h4 class="text-success">@Message</h4>
+} 
