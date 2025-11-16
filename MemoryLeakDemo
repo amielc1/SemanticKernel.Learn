@@ -1,0 +1,69 @@
+namespace MemoryLeakDemo
+{
+    public  class EventPublisher
+    {
+        public static event Action? OnSomethingHappened;
+
+        public static void TriggerEvent()
+        {
+            OnSomethingHappened?.Invoke();
+        }
+    }
+
+    public class Subscriber :IDisposable
+    {
+        private readonly byte[] _data = new byte[1024 * 1024]; 
+
+        public Subscriber()
+        {
+            EventPublisher.OnSomethingHappened += HandleEvent;
+        }
+         
+        private void HandleEvent()
+        {
+            Console.WriteLine("Event handled by a subscriber.");
+        }
+
+
+        public void Dispose()
+        {
+            EventPublisher.OnSomethingHappened -= HandleEvent;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Press any key to create 1,000 leaking subscribers...");
+            Console.ReadKey();
+
+            CreateLeakingObjects();
+
+            Console.WriteLine("1,000 objects created and are now 'out of scope'.");
+            Console.WriteLine("They should be garbage collected... but they won't be.");
+
+            Console.WriteLine("\nBefore Run GC");
+            Console.ReadKey();
+
+            GC.Collect();
+
+            Console.WriteLine("\nGC run complete. Take Snapshot #2 now!");
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+
+        static void CreateLeakingObjects()
+        {
+            
+            for (int i = 0; i < 1000; i++)
+            {
+
+                Subscriber sub = new Subscriber();
+
+                //sub.Dispose();
+                
+            }
+        }
+    }
+}
